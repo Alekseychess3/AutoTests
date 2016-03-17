@@ -18,7 +18,7 @@ public class FeedBack{
     WebElement element;
 
     private String idFeedBack="request-feedback", idName="feedback-name", idPhone="feedback-phone", idCall="";
-    private String name="", phone="";
+    private String name="", phone="", call="";
     private String regName="^[a-z0-9_-]{3,30}$", regPhone="^[0-9]{10}$";
 
     public void open(WebDriver browser, String url){
@@ -55,21 +55,21 @@ public class FeedBack{
 
 
     public void submit(){
-        checkName(this.name);
-        this.checkPhone(this.phone);
-
 
         try {
 
             if (checkName(this.name) == true && checkPhone(this.phone) == true) {
                 driver.findElement(By.linkText("Перезвоните мне!")).click();
                 driver.findElement(By.id(idCall));
+                this.call=element.getText();
             }
         }
 
         catch (Exception e){
             System.out.println("text after submitting not found");
         }
+
+        
 
 
     }
@@ -80,7 +80,7 @@ public class FeedBack{
 
     public String currentResult() {
 
-        return "result";
+        return this.call;
     }
 
     public String expectedResultValid() {
