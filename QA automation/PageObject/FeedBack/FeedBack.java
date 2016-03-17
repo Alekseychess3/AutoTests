@@ -45,15 +45,15 @@ public class FeedBack{
         this.phone=value;
     }
 
-    public boolean checkName(String name){
+    public boolean checkName(){
         Pattern regName = Pattern.compile(this.regName);
-        Matcher matcher = regName.matcher(name);
+        Matcher matcher = regName.matcher(this.name);
         return matcher.matches();
     }
 
-    public boolean checkPhone(String phone){
+    public boolean checkPhone(){
         Pattern regPhone = Pattern.compile(this.regPhone);
-        Matcher matcher = regPhone.matcher(phone);
+        Matcher matcher = regPhone.matcher(this.phone);
         return matcher.matches();
     }
 
@@ -62,7 +62,7 @@ public class FeedBack{
 
         try {
 
-            if (checkName(this.name) == true && checkPhone(this.phone) == true) {
+           if (checkName() == true && checkPhone()==true){
                 browser.findElement(By.linkText("Перезвоните мне!")).click();
                 browser.findElement(By.id(idCall));
                 this.call=element.getText();
