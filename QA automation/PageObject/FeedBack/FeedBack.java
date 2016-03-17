@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class FeedBack{
 
-    WebDriver driver;
+    WebDriver browser;
     WebElement element;
 
     private String idFeedBack="request-feedback", idName="feedback-name", idPhone="feedback-phone", idCall="";
@@ -22,22 +22,26 @@ public class FeedBack{
     private String regName="^[a-z0-9_-]{3,30}$", regPhone="^[0-9]{10}$";
 
     public void open(WebDriver browser, String url){
-        driver.get(url);
-        driver.manage().window().maximize();
+
+        this.browser=browser;
+        browser.get(url);
+
+        browser.manage().window().maximize();
+        browser.findElement(By.id(idFeedBack));
+        browser.findElement(By.id(idFeedBack)).click();
     }
 
     public void inputName(String value){
-        driver.findElement(By.id(idName));
-        element.click();
-        element.sendKeys(value);
+        browser.findElement(By.id(idName));
+        browser.findElement(By.id(idName)).click();
+        browser.findElement(By.id(idName)).sendKeys(value);
         this.name=value;
     }
 
     public void inputPhone(String value){
-        driver.findElement(By.id(idPhone));
-        element.click();
-        element.click();
-        element.sendKeys(value);
+        browser.findElement(By.id(idPhone));
+        browser.findElement(By.id(idPhone)).click();
+        browser.findElement(By.id(idPhone)).sendKeys(value);
         this.phone=value;
     }
 
@@ -59,8 +63,8 @@ public class FeedBack{
         try {
 
             if (checkName(this.name) == true && checkPhone(this.phone) == true) {
-                driver.findElement(By.linkText("Перезвоните мне!")).click();
-                driver.findElement(By.id(idCall));
+                browser.findElement(By.linkText("Перезвоните мне!")).click();
+                browser.findElement(By.id(idCall));
                 this.call=element.getText();
             }
         }
@@ -69,13 +73,13 @@ public class FeedBack{
             System.out.println("text after submitting not found");
         }
 
-        
+
 
 
     }
 
     public void close(){
-        driver.quit();
+        browser.quit();
     }
 
     public String currentResult() {
